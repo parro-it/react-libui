@@ -1,11 +1,16 @@
 const libui = require('./libui-node/index.js');
+const os = require('os');
 
 libui.Ui.init();
 
 module.exports.render = require('./src/render/render').render;
 module.exports.stop = () => libui.stopLoop();
 module.exports.start = () => {
-    libui.startLoop();
+    if (process.platform === 'darwin') {
+        libui.Ui.main(); // not really sure why the loop doesn't work on mac
+    } else {
+        libui.startLoop();
+    }
 };
 
 module.exports.Button = require('./src/components/Button');
