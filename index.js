@@ -2,10 +2,9 @@ const libui = require('./libui-node/index.js');
 
 libui.Ui.init();
 
-libui.startLoop();
-
 module.exports.render = require('./src/render/render').render;
 module.exports.stop = () => libui.stopLoop();
+module.exports.start = () => libui.Ui.main();
 
 module.exports.Button = require('./src/components/Button');
 module.exports.Checkbox = require('./src/components/Checkbox');

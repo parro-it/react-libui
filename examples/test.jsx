@@ -146,3 +146,4 @@ class App extends React.Component {
 }
 
 LibUIReact.render(<App/>);
+LibUIReact.start();
