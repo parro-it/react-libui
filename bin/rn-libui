@@ -1,0 +1,15 @@
+#!/usr/bin/env bash
+
+export NO_AT_BRIDGE=1
+export LD_LIBRARY_PATH=./libui-node/libui/build/out
+
+runnode() {
+    if hash nodejs 2>/dev/null; then
+        nodejs "$@"
+    else
+        node "$@"
+    fi
+}
+
+runnode "$@"
+

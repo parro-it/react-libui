@@ -3,19 +3,20 @@
     "version": "1.0.0",
     "description": "",
     "main": "index.js",
+    "bin": {
+        "rn-libui": "./bin/rn-libui"
+    },
     "dependencies": {
-        "invariant": "^2.2.1",
         "react": "^0.14.7"
     },
     "devDependencies": {
         "babel-cli": "^6.10.1",
-        "babel-preset-react": "^6.5.0",
-        "longjohn": "^0.2.11"
+        "babel-preset-react": "^6.5.0"
     },
     "scripts": {
         "install": "rm -rf libui-node && git clone git@github.com:parro-it/libui-node.git && cd libui-node && git checkout 393bac975a89000073a9166fbc92a6192196d49f && git clone git@github.com:andlabs/libui.git && cd libui && git checkout 48546f6b444badb52357f79d185d695df02f767b && rm -rf build/ && cd .. && npm install && cd ..",
         "test": "echo \"Error: no test specified\" && exit 1",
-        "example": "babel-node examples/test.jsx"
+        "example": "babel examples/test.jsx --out-file examples/test-compiled.js && ./bin/rn-libui examples/test-compiled.js"
     },
     "keywords": [],
     "author": "",
