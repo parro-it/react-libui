@@ -4,7 +4,9 @@ libui.Ui.init();
 
 module.exports.render = require('./src/render/render').render;
 module.exports.stop = () => libui.stopLoop();
-module.exports.start = () => libui.Ui.main();
+module.exports.start = () => {
+    libui.startLoop();
+};
 
 module.exports.Button = require('./src/components/Button');
 module.exports.Checkbox = require('./src/components/Checkbox');

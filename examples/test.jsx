@@ -137,6 +137,11 @@ class App extends React.Component {
                                                                                 </VerticalBox>
                                                                             </Tabs.Tab>)) }
                                 </Tabs>
+                                <Button onClicked={ () => {
+                                                        this.setState({
+                                                            tabs: [...this.state.tabs, '']
+                                                        });
+                                                    } }>Add Tab</Button>
                             </VerticalBox>
                         </Group>
                     </VerticalBox>
