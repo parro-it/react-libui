@@ -31,7 +31,7 @@ class App extends React.Component {
 
     render() {
         return (
-            <Window title={ "Running for " + this.state.seconds + " Seconds" } margined={ true } onClosing={ LibUIReact.stop } ref="main">
+            <Window title={ "Running for " + this.state.seconds + " Seconds" } margined={ true } onClosing={ () => this.componentWillUnmount() || LibUIReact.stop() } ref="main">
                 <HorizontalBox stretch={ true }>
                     <VerticalBox>
                         <Group title="Input Example">
