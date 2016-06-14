@@ -13,7 +13,7 @@
         "longjohn": "^0.2.11"
     },
     "scripts": {
-        "install": "git clone git@github.com:parro-it/libui-node.git && cd libui-node && git checkout 05b1020462006ca71ea03e33c7ea4e61f22c74a5 && git clone git@github.com:andlabs/libui.git && cd libui && git checkout f08cd96688cf1fa5c50f6ac4eee22a76322ab04d && rm -rf build/ && cd .. && npm install && cd ..",
+        "install": "rm -rf libui-node && git clone git@github.com:parro-it/libui-node.git && cd libui-node && git checkout 393bac975a89000073a9166fbc92a6192196d49f && git clone git@github.com:andlabs/libui.git && cd libui && git checkout 48546f6b444badb52357f79d185d695df02f767b && rm -rf build/ && cd .. && npm install && cd ..",
         "test": "echo \"Error: no test specified\" && exit 1",
         "example": "babel-node examples/test.jsx"
     },
