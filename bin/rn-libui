@@ -47,6 +47,7 @@ const config = {
     entry: process.argv[2],
     dest: bundleJs,
     format: 'cjs',
+    treeshake: false,
     plugins: [
         babel({
                 include: ['index.js', 'examples/**', 'src/**']
