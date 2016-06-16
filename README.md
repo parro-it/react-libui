@@ -1,7 +1,7 @@
 # React Native LibUI
 Create UIs for every platform using the best view framework.
 
-## Installing
+## Quick Start
 
 First off, you'll need to have node-gyp setup.
 
@@ -11,15 +11,21 @@ After that make sure you have all the dependencies installed for libui.
 npm install --save react-native-libui
 ```
 
-## Running the example
+Then inside your package.json, add a few scripts to handle building:
 
-There's a pretty complete example, called `examples/test.jsx`. This includes all of the components that are currently supported and shows off most of the features. You can run the example with:
-
+```json
+"watch": "rn-libui <my entry file> --watch",
+"build": "rn-libui-build <my entry file> <my output folder> --platform <linux|darwin|windows>",
 ```
-npm run example
-```
 
-## Support
+When you want to work on your project, do `npm run watch`. This will automatically watch your files and restart the GUI when needed.
+When you're ready to release your project, do `npm run build`. This will produce everything you need to package your program with no dependencies.
 
-I've yet to get Windows support working perfectly.
+## To Do
+
+We've got a lot of stuff left that needs to be finished. Check the issues for more.
+
+## License
+
+MIT
 
