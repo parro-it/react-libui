@@ -1,15 +1,15 @@
-const libui = require('../../libui-node');
-const ReactMultiChild = require('react/lib/ReactMultiChild');
-const ReactLibUIIDOperations = require('../render/ReactLibUIIDOperations');
+import libui from '../../libui-node';
+import ReactLibUIIDOperations from '../render/ReactLibUIIDOperations';
+import ReactMultiChild from 'react/lib/ReactMultiChild';
 
-class VerticalBox {
+export class VerticalBox {
     constructor(element) {
         this.node = null;
         this._currentElement = element;
         this._renderedChildren = null;
         this._rootNodeID = null;
     }
-    
+
     construct(element) {
         this._currentElement = element;
     }
@@ -32,7 +32,7 @@ class VerticalBox {
         this.mountChildren(props.children, transaction, context).map((child, index) => this.mountChild(child, props, index));
         return this.node;
     }
-    
+
     receiveComponent(nextComponent, transaction, context) {
         const props = nextComponent.props;
         const oldProps = this._currentElement.props;
@@ -59,6 +59,3 @@ class VerticalBox {
     }
 }
 Object.assign(VerticalBox.prototype, ReactMultiChild.Mixin);
-
-module.exports = VerticalBox;
-

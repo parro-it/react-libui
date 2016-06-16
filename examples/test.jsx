@@ -1,13 +1,12 @@
-const React = require('react');
-const LibUIReact = require('../index');
-const {Label, Entry, SearchEntry, PasswordEntry, Button, Combobox, EditableCombobox, Checkbox, RadioButtons, Slider, ProgressBar, MultilineEntry, Tabs, HorizontalBox, VerticalBox, Group, Window} = LibUIReact;
+import React from 'react';
+import { render, start, stop, Label, Entry, SearchEntry, PasswordEntry, Button, Combobox, EditableCombobox, Checkbox, RadioButtons, Slider, ProgressBar, MultilineEntry, Tabs, HorizontalBox, VerticalBox, Group, Window } from '../index';
 
 class App extends React.Component {
     constructor(props) {
         super(props);
 
         this.state = {
-            value: 'Initial value',
+            value: 'Starting value',
             numberEntry: 42,
             selected: 1,
             comboValue: 'One',
@@ -31,7 +30,7 @@ class App extends React.Component {
 
     render() {
         return (
-            <Window title={ "Running for " + this.state.seconds + " Seconds" } margined={ true } onClosing={ () => this.componentWillUnmount() || LibUIReact.stop() } ref="main">
+            <Window title={ "Running for " + this.state.seconds + " Seconds" } margined={ true } onClosing={ () => this.componentWillUnmount() || stop() } ref="main">
                 <HorizontalBox stretch={ true }>
                     <VerticalBox>
                         <Group title="Input Example">
@@ -150,5 +149,5 @@ class App extends React.Component {
     }
 }
 
-LibUIReact.render(<App/>);
-LibUIReact.start();
+render(<App/>);
+start();

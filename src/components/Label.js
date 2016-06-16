@@ -1,7 +1,7 @@
-const libui = require('../../libui-node');
-const ReactLibUIIDOperations = require('../render/ReactLibUIIDOperations');
+import libui from '../../libui-node';
+import ReactLibUIIDOperations from '../render/ReactLibUIIDOperations';
 
-class Label {
+export class Label {
     constructor(element) {
         this.node = null;
         this._currentElement = element;
@@ -50,5 +50,3 @@ class Label {
         }
     }
 }
-
-module.exports = Label;

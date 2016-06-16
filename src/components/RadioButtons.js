@@ -1,8 +1,8 @@
-const libui = require('../../libui-node');
-const ReactMultiChild = require('react/lib/ReactMultiChild');
-const ReactLibUIIDOperations = require('../render/ReactLibUIIDOperations');
+import libui from '../../libui-node';
+import ReactLibUIIDOperations from '../render/ReactLibUIIDOperations';
+import ReactMultiChild from 'react/lib/ReactMultiChild';
 
-class RadioButtons {
+export class RadioButtons {
     constructor(element) {
         this.node = null;
         this._currentElement = element;
@@ -28,7 +28,7 @@ class RadioButtons {
         this.node = new libui.UiRadioButtons();
         ReactLibUIIDOperations.add(rootID, this.node, props);
         this.mountChildren(props.children, transaction, context).map(child => this.mountChild(child));
-        
+
         this.updateProps({}, props);
 
         return this.node;
@@ -62,5 +62,5 @@ class RadioButtons {
 }
 Object.assign(RadioButtons.prototype, ReactMultiChild.Mixin);
 
-module.exports = RadioButtons;
-module.exports.Item = require('./ComboboxItem');
+import { Item } from './ComboboxItem';
+RadioButtons.Item = Item;

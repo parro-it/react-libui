@@ -1,11 +1,7 @@
-let ReactLibUIIDOperations;
+import ReactLibUIIDOperations from './ReactLibUIIDOperations';
+import libui from '../../libui-node';
 
-// require after since we require each other
-setImmediate(() => ReactLibUIIDOperations = require('./ReactLibUIIDOperations'));
-
-const libui = require('../../libui-node/index');
-
-module.exports.processChildrenUpdates = function(updates, components) {
+export function processChildrenUpdates(updates, components) {
     for (let i = 0; i < updates.length; i++) {
         const update = updates[i];
         if (update.type === 'INSERT_MARKUP') {

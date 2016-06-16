@@ -1,15 +1,15 @@
-const libui = require('../../libui-node');
-const ReactMultiChild = require('react/lib/ReactMultiChild');
-const ReactLibUIIDOperations = require('../render/ReactLibUIIDOperations');
+import libui from '../../libui-node';
+import ReactLibUIIDOperations from '../render/ReactLibUIIDOperations';
+import ReactMultiChild from 'react/lib/ReactMultiChild';
 
-class EditableCombobox {
+export class EditableCombobox {
     constructor(element) {
         this.node = null;
         this._currentElement = element;
         this._renderedChildren = null;
         this._rootNodeID = null;
     }
-    
+
     construct(element) {
         this._currentElement = element;
     }
@@ -36,7 +36,7 @@ class EditableCombobox {
     mountChild(child, index) {
         this.node.append(child.text);
     }
-    
+
     receiveComponent(nextComponent, transaction, context) {
         const props = nextComponent.props;
         const oldProps = this._currentElement.props;
@@ -61,6 +61,5 @@ class EditableCombobox {
 }
 Object.assign(EditableCombobox.prototype, ReactMultiChild.Mixin);
 
-module.exports = EditableCombobox;
-module.exports.Item = require('./ComboboxItem');
-
+import { Item } from './ComboboxItem';
+EditableCombobox.Item = Item;

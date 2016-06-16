@@ -1,14 +1,13 @@
-const invariant = require('invariant');
-const ReactElement = require('react/lib/ReactElement');
-const ReactInstanceHandles = require('react/lib/ReactInstanceHandles');
-const ReactLibUIIDOperations = require('./ReactLibUIIDOperations');
-const ReactUpdates = require('react/lib/ReactUpdates');
-const instantiateReactComponent = require('react/lib/instantiateReactComponent');
+import ReactElement from 'react/lib/ReactElement';
+import ReactInstanceHandles from 'react/lib/ReactInstanceHandles';
+import ReactUpdates from 'react/lib/ReactUpdates';
+import instantiateReactComponent from 'react/lib/instantiateReactComponent';
 
-require('./ReactLibUIInject').inject();
+import { inject } from './ReactLibUIInject';
+inject();
 
 // inspired by https://github.com/Yomguithereal/react-blessed/blob/master/src/render.js
-function render(element) {
+export function render(element) {
     if (!ReactElement.isValidElement(element)) {
         throw new Error('Invalid React Element');
     }
@@ -18,8 +17,6 @@ function render(element) {
     // create our component
     const component = instantiateReactComponent(element);
 
-    //ReactLibUIIDOperations.setWindow(window);
-
     ReactUpdates.batchedUpdates(() => {
         const transaction = ReactUpdates.ReactReconcileTransaction.getPooled();
         transaction.perform(() => component.mountComponent(id, transaction, {}));
@@ -28,7 +25,3 @@ function render(element) {
 
     return component._instance;
 }
-
-module.exports = {
-    render: render
-};

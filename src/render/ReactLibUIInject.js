@@ -1,11 +1,11 @@
-const ReactInjection = require('react/lib/ReactInjection');
-const ReactComponentEnvironment = require('react/lib/ReactComponentEnvironment');
+import ReactInjection from 'react/lib/ReactInjection';
+import ReactComponentEnvironment from 'react/lib/ReactComponentEnvironment';
 
-const ReactLibUIReconcileTransaction = require('./ReactLibUIReconcileTransaction');
-const ReactLibUIIDOperations = require('./ReactLibUIIDOperations');
+import ReactLibUIReconcileTransaction from './ReactLibUIReconcileTransaction';
+import ReactLibUIIDOperations from './ReactLibUIIDOperations';
 
 // inspired by https://github.com/Yomguithereal/react-blessed/blob/master/src/ReactBlessedInjection.js
-module.exports.inject = function inject() {
+export function inject() {
     //    ReactInjection.NativeComponent.injectGenericComponentClass(ReactLibUIComponent);
 
     ReactInjection.Updates.injectReconcileTransaction(ReactLibUIReconcileTransaction);
@@ -14,4 +14,4 @@ module.exports.inject = function inject() {
 
     ReactComponentEnvironment.processChildrenUpdates = ReactLibUIIDOperations.dangerouslyProcessChildrenUpdates.bind(ReactLibUIIDOperations);
     ReactComponentEnvironment.replaceNodeWithMarkupByID = ReactLibUIIDOperations.dangerouslyReplaceNodeWithMarkupByID.bind(ReactLibUIIDOperations);
-};
+}

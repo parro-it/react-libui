@@ -1,4 +1,4 @@
-const ReactLibUIChildrenOperations = require('./ReactLibUIChildrenOperations');
+import { processChildrenUpdates } from './ReactLibUIChildrenOperations';
 
 const nodes = {};
 const stretchy = [];
@@ -34,7 +34,7 @@ class ReactLibUIIDOperations {
     }
 
     getParent(id) {
-        if (id.match(/\./g).length === 1){
+        if (id.match(/\./g).length === 1) {
             return this.screen;
         }
 
@@ -56,15 +56,15 @@ class ReactLibUIIDOperations {
             updates[i].parentNode = this.get(updates[i].parentID);
         }
 
-        ReactLibUIChildrenOperations.processChildrenUpdates(updates, components);
+        processChildrenUpdates(updates, components);
     }
 
     dangerouslyReplaceNodeWithMarkupByID(id, markup) {
         const node = get(id);
 
-//       ReactLibUIChildrenOperations.replaceNode(node, markup);
+        //       ReactLibUIChildrenOperations.replaceNode(node, markup);
     }
 }
 
-module.exports = new ReactLibUIIDOperations();
-
+const instance = new ReactLibUIIDOperations();
+export default instance;

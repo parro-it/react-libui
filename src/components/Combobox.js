@@ -1,8 +1,8 @@
-const libui = require('../../libui-node');
-const ReactMultiChild = require('react/lib/ReactMultiChild');
-const ReactLibUIIDOperations = require('../render/ReactLibUIIDOperations');
+import libui from '../../libui-node';
+import ReactLibUIIDOperations from '../render/ReactLibUIIDOperations';
+import ReactMultiChild from 'react/lib/ReactMultiChild';
 
-class Combobox {
+export class Combobox {
     constructor(element) {
         this.node = null;
         this._currentElement = element;
@@ -62,5 +62,5 @@ class Combobox {
 }
 Object.assign(Combobox.prototype, ReactMultiChild.Mixin);
 
-module.exports = Combobox;
-module.exports.Item = require('./ComboboxItem');
+import { Item } from './ComboboxItem';
+Combobox.Item = Item;

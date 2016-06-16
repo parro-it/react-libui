@@ -1,3 +1,6 @@
 node_modules/
 libui-node/
-examples/*-compiled.js
+build-test/
+npm-debug.log
+tmp/
+dist/

@@ -1,8 +1,8 @@
-const libui = require('../../libui-node');
-const ReactMultiChild = require('react/lib/ReactMultiChild');
-const ReactLibUIIDOperations = require('../render/ReactLibUIIDOperations');
+import libui from '../../libui-node';
+import ReactLibUIIDOperations from '../render/ReactLibUIIDOperations';
+import ReactMultiChild from 'react/lib/ReactMultiChild';
 
-class Tabs {
+export class Tabs {
     constructor(element) {
         this.node = null;
         this._currentElement = element;
@@ -61,5 +61,5 @@ class Tabs {
 }
 Object.assign(Tabs.prototype, ReactMultiChild.Mixin);
 
-module.exports = Tabs;
-module.exports.Tab = require('./Tab');
+import { Tab } from './Tab';
+Tabs.Tab = Tab;

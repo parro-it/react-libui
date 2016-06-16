@@ -1,7 +1,7 @@
-const libui = require('../../libui-node');
-const ReactLibUIIDOperations = require('../render/ReactLibUIIDOperations');
+import libui from '../../libui-node';
+import ReactLibUIIDOperations from '../render/ReactLibUIIDOperations';
 
-class Button {
+export class Button {
     constructor(element) {
         this.node = null;
         this._currentElement = element;
@@ -43,12 +43,13 @@ class Button {
 
     updateProps(oldProps, props) {
         if (props.children !== oldProps.children) {
-            this.node.setText(props.children);
+            const text = typeof props.children === 'string' ? props.children : props.children.join('');
+            if (text !== this.node.getText()) {
+                this.node.setText(text);
+            }
         }
         if (props.onClicked) {
             this.node.onClicked(props.onClicked);
         }
     }
 }
-
-module.exports = Button;

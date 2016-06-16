@@ -1,6 +1,4 @@
-const React = require('react');
-
-class ComboboxItem {
+export class Item {
     constructor(element) {
         this._currentElement = element;
         this._rootNodeID = null;
@@ -43,6 +41,6 @@ class ComboboxItem {
     }
 }
 
-// todo proptypes checking
+export { Item as SomethingElse };
 
-module.exports = ComboboxItem;
+// todo proptypes checking

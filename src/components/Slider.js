@@ -1,7 +1,7 @@
-const libui = require('../../libui-node');
-const ReactLibUIIDOperations = require('../render/ReactLibUIIDOperations');
+import libui from '../../libui-node';
+import ReactLibUIIDOperations from '../render/ReactLibUIIDOperations';
 
-class Slider {
+export class Slider {
     constructor(element) {
         this.node = null;
         this._currentElement = element;
@@ -51,5 +51,3 @@ class Slider {
         }
     }
 }
-
-module.exports = Slider;

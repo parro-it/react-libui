@@ -1,10 +1,5 @@
-const React = require('react');
-
-const LibUIReact = require('../index');
-const Window = require('../src/components/Window');
-const VerticalBox = require('../src/components/VerticalBox');
-const Label = require('../src/components/Label');
-const Button = require('../src/components/Button');
+import React from 'react';
+import {start, stop, render, Window, VerticalBox, Label, Button} from '../';
 
 class App extends React.Component {
 
@@ -17,16 +12,18 @@ class App extends React.Component {
     }
 
     render() {
-        return (<Window title="Simple Label" onClosing={ LibUIReact.stop }>
+        return (<Window title="Simple Label" onClosing={ stop }>
                     <VerticalBox>
-                        { this.state.hidden ? null : (<Label key="label">Wow!</Label>) }
+                        { this.state.hidden ? null : (<Label key="label">Good Job!</Label>) }
                         <Button onClicked={ () => this.setState({
                                                 hidden: !this.state.hidden
                                             }) }>Toggle (hidden:
-                            { this.state.hidden })</Button>
+                            { ' ' + this.state.hidden })</Button>
                     </VerticalBox>
                 </Window>);
     }
+
 }
 
-LibUIReact.render(<App/>);
+render(<App/>);
+start();

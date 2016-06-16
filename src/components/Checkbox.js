@@ -1,13 +1,13 @@
-const ReactLibUIIDOperations = require('../render/ReactLibUIIDOperations');
-const libui = require('../../libui-node');
+import libui from '../../libui-node';
+import ReactLibUIIDOperations from '../render/ReactLibUIIDOperations';
 
-class Checkbox {
+export class Checkbox {
     constructor(element) {
         this.node = null;
         this._currentElement = element;
         this._rootNodeID = null;
     }
-    
+
     construct(element) {
         this._currentElement = element;
     }
@@ -30,7 +30,7 @@ class Checkbox {
 
         return this.node;
     }
-    
+
     receiveComponent(nextComponent, transaction, context) {
         const props = nextComponent.props;
         const oldProps = this._currentElement.props;
@@ -57,7 +57,3 @@ class Checkbox {
         }
     }
 }
-
-module.exports = Checkbox;
-
-

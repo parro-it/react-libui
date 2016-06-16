@@ -1,32 +1,33 @@
-const libui = require('./libui-node/index.js');
-const os = require('os');
+import * as libui from './libui-node/index';
 
-libui.Ui.init();
+export { render } from './src/render/render';
+export { Button } from './src/components/Button';
+export { Checkbox } from './src/components/Checkbox';
+export { Combobox } from './src/components/Combobox';
+export { EditableCombobox } from './src/components/EditableCombobox';
+export { Entry } from './src/components/Entry';
+export { Group } from './src/components/Group';
+export { HorizontalBox } from './src/components/HorizontalBox';
+export { Label } from './src/components/Label';
+export { MultilineEntry } from './src/components/MultilineEntry';
+export { PasswordEntry } from './src/components/PasswordEntry';
+export { ProgressBar } from './src/components/ProgressBar';
+export { RadioButtons } from './src/components/RadioButtons';
+export { SearchEntry } from './src/components/SearchEntry';
+export { Slider } from './src/components/Slider';
+export { Tabs } from './src/components/Tabs';
+export { VerticalBox } from './src/components/VerticalBox';
+export { Window } from './src/components/Window';
 
-module.exports.render = require('./src/render/render').render;
-module.exports.stop = () => libui.stopLoop();
-module.exports.start = () => {
+export function stop() {
+    libui.stopLoop();
+}
+export function start() {
     if (process.platform === 'darwin') {
         libui.Ui.main(); // not really sure why the loop doesn't work on mac
     } else {
         libui.startLoop();
     }
-};
+}
 
-module.exports.Button = require('./src/components/Button');
-module.exports.Checkbox = require('./src/components/Checkbox');
-module.exports.Combobox = require('./src/components/Combobox');
-module.exports.EditableCombobox = require('./src/components/EditableCombobox');
-module.exports.Entry = require('./src/components/Entry');
-module.exports.Group = require('./src/components/Group');
-module.exports.HorizontalBox = require('./src/components/HorizontalBox');
-module.exports.Label = require('./src/components/Label');
-module.exports.MultilineEntry = require('./src/components/MultilineEntry');
-module.exports.PasswordEntry = require('./src/components/PasswordEntry');
-module.exports.ProgressBar = require('./src/components/ProgressBar');
-module.exports.RadioButtons = require('./src/components/RadioButtons');
-module.exports.SearchEntry = require('./src/components/SearchEntry');
-module.exports.Slider = require('./src/components/Slider');
-module.exports.Tabs = require('./src/components/Tabs');
-module.exports.VerticalBox = require('./src/components/VerticalBox');
-module.exports.Window = require('./src/components/Window');
+libui.Ui.init();

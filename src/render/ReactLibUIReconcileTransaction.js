@@ -1,6 +1,6 @@
-const CallbackQueue = require('react/lib/CallbackQueue');
-const PooledClass = require('react/lib/PooledClass');
-const Transaction = require('react/lib/Transaction');
+import CallbackQueue from 'react/lib/CallbackQueue';
+import PooledClass from 'react/lib/PooledClass';
+import Transaction from 'react/lib/Transaction';
 
 const ON_READY_QUEUEING = {
     initialize: function() {
@@ -11,7 +11,7 @@ const ON_READY_QUEUEING = {
     }
 };
 
-function ReactLibUIReconcileTransaction() {
+export default function ReactLibUIReconcileTransaction() {
     this.reinitializeTransaction();
     this.reactMountReady = CallbackQueue.getPooled(null);
 }
@@ -32,5 +32,3 @@ const Mixin = {
 Object.assign(ReactLibUIReconcileTransaction.prototype, Transaction.Mixin, Mixin);
 
 PooledClass.addPoolingTo(ReactLibUIReconcileTransaction);
-
-module.exports = ReactLibUIReconcileTransaction;

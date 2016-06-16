@@ -1,15 +1,122 @@
-#!/usr/bin/env bash
+#!/bin/sh
+':' //; exec "$(command -v nodejs || command -v node)" "$0" "$@"
 
-export NO_AT_BRIDGE=1
-export LD_LIBRARY_PATH=./libui-node/libui/build/out
+// vim: ft=javascript
 
-runnode() {
-    if hash nodejs 2>/dev/null; then
-        nodejs "$@"
-    else
-        node "$@"
-    fi
+require('source-map-support').install();
+
+if (process.argv.length < 3) {
+    console.warn('Usage: rn-libui <file> [--watch]');
+    return process.exit(1);
 }
 
-runnode "$@"
+const rollup = require('rollup');
 
+const commonjs = require('rollup-plugin-commonjs');
+const nodeResolve = require('rollup-plugin-node-resolve');
+const babel = require('rollup-plugin-babel');
+const childProcess = require('child_process');
+const fs = require('fs');
+const path = require('path');
+
+const parentDir = path.join(__dirname, '..');
+const tmpDir = path.join(parentDir, 'tmp');
+if (!fs.existsSync(tmpDir)) {
+    fs.mkdirSync(tmpDir);
+}
+const bundleJs = path.join(tmpDir, 'bundle.js');
+const inputBindings = path.join(parentDir, 'libui-node', 'build', 'Release', 'nbind.node');
+const outputBindings =  path.join(tmpDir, 'nbind.node');
+const inputLibOne = path.join(parentDir, 'libui-node', 'libui', 'build', 'out', 'libui.so');
+const inputLibTwo = path.join(parentDir, 'libui-node', 'libui', 'build', 'out', 'libui.so.0');
+const outputLibOne = path.join(tmpDir, 'libui.so');
+const outputLibTwo = path.join(tmpDir, 'libui.so.0');
+
+function copy(input, output) {
+    return new Promise((resolve, reject) => {
+        if (!fs.existsSync(input)) {
+            return reject(`File ${input} does not exist. Did everything compile correctly?`);
+        }
+        const stream = fs.createReadStream(input).pipe(fs.createWriteStream(output));
+        stream.on('error', reject);
+        stream.on('finish', resolve);
+    });
+}
+
+const config = {
+    entry: process.argv[2],
+    dest: bundleJs,
+    format: 'cjs',
+    plugins: [
+        babel({
+                include: ['index.js', 'examples/**', 'src/**']
+        }),
+        nodeResolve({
+                jsnext: true,
+                main: true,
+                browser: false,
+                extensions: ['.js', '.json', '.node'],
+                preferBuiltins: true
+        }),
+        commonjs({
+                include: ['node_modules/**', 'libui-node/**'],
+                namedExports: {
+                    'libui-node/index.js': ['Ui'],
+                    'node_modules/react/react.js': ['createElement', 'Component']
+                }
+        }),
+    ]
+};
+
+console.log(`Bundling ${process.argv[2]}..`);
+
+let watching = false;
+
+process.argv.slice(2).forEach(arg => {
+        if (arg.toLowerCase() === '--watch') {
+            watching = true;
+        }
+});
+
+let running = false;
+
+function start() {
+    if (running !== false) {
+        running.kill('SIGHUP');
+    }
+    running = childProcess.spawn('node', ['./tmp/bundle.js'], {stdio: 'inherit'});
+    running.on('error', error => console.error('Error occurred in child process', error));
+}
+
+if (watching) {
+    const watch = require('rollup-watch');
+    const watcher = watch(rollup, config);
+
+    watcher.on('event', event => {
+            if (event.code === 'STARTING') {
+                console.log('Watching files for changes..');
+            } else if (event.code === 'BUILD_START') {
+                console.log('Starting rebuild..')
+            } else if (event.code === 'BUILD_END') {
+                console.log('Rebuilt. Took ' + event.duration + 'ms.');
+                start();
+            }
+    });
+} else {
+    rollup.rollup(config).then(bundle => {
+            console.log('Writing to', bundleJs);
+            const result = bundle.generate({format: 'cjs'});
+            fs.writeFileSync(bundleJs, result.code);
+
+            return Promise.all([
+                    copy(inputBindings, outputBindings),
+                    copy(inputLibOne, outputLibOne),
+                    copy(inputLibTwo, outputLibTwo)
+            ]);
+    })
+    .then(() => start())
+    .catch(err => {
+            console.warn(err);
+            process.exit(1);
+    });
+}

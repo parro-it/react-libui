@@ -1,6 +1,6 @@
-const ReactLibUIIDOperations = require('../render/ReactLibUIIDOperations');
-const libui = require('../../libui-node');
-const ReactMultiChild = require('react/lib/ReactMultiChild');
+import libui from '../../libui-node';
+import ReactLibUIIDOperations from '../render/ReactLibUIIDOperations';
+import ReactMultiChild from 'react/lib/ReactMultiChild';
 
 const WindowDummy = {
     alert: function(title, message) {
@@ -45,7 +45,7 @@ const WindowDummy = {
     }
 };
 
-class Window {
+export class Window {
     constructor(element) {
         this.node = null;
         this._currentElement = element;
@@ -113,5 +113,3 @@ class Window {
     }
 }
 Object.assign(Window.prototype, ReactMultiChild.Mixin);
-
-module.exports = Window;

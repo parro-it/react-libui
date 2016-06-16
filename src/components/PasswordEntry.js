@@ -1,7 +1,7 @@
-const libui = require('../../libui-node');
-const ReactLibUIIDOperations = require('../render/ReactLibUIIDOperations');
+import libui from '../../libui-node';
+import ReactLibUIIDOperations from '../render/ReactLibUIIDOperations';
 
-class PasswordEntry {
+export class PasswordEntry {
     constructor(element) {
         this.node = null;
         this._currentElement = element;
@@ -52,5 +52,3 @@ class PasswordEntry {
         }
     }
 }
-
-module.exports = PasswordEntry;
