@@ -11,6 +11,7 @@
     "source-map-support": "^0.4.0",
     "babel-cli": "^6.10.1",
     "babel-preset-es2015-rollup": "^1.1.1",
+    "babel-preset-es2015": "^6.9.0",
     "babel-preset-react": "^6.5.0",
     "node-fetch": "^1.5.3",
     "rimraf-promise": "^2.0.0",
@@ -23,11 +24,16 @@
     "xz": "^1.2.2"
   },
   "scripts": {
-    "install": "rm -rf libui-node && git clone git@github.com:parro-it/libui-node.git && cd libui-node && git checkout bff6356f5b560cb56b8a73ac3799d93fda728aa3 && git clone git@github.com:andlabs/libui.git && cd libui && git checkout 48546f6b444badb52357f79d185d695df02f767b && rm -rf build/ && cd .. && npm install && cd ..",
+    "install": "rm -rf libui-node && rm -rf libui && git clone https://github.com/parro-it/libui-node.git && cd libui-node && git submodule init && git submodule update && npm install && cd .. && mkdir -p libui/build/out && mv libui-node/libui/build/out/* libui/build/out ",
     "test": "echo \"Error: no test specified\" && exit 1",
-    "example": "./bin/rn-libui examples/test.jsx"
+    "example": "./bin/rn-libui examples/test.jsx",
+    "start": "babel-node examples/test.jsx"
+
   },
   "keywords": [],
   "author": "",
-  "license": "ISC"
+  "license": "ISC",
+  "devDependencies": {
+
+  }
 }
