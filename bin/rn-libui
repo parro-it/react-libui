@@ -88,9 +88,10 @@ function start() {
     if (running !== false) {
         running.kill('SIGHUP');
     }
-    running = childProcess.spawn('node', ['./tmp/bundle.js'], {stdio: 'inherit', env: {
-                LD_LIBRARY_PATH: './tmp'
-    }});
+    const env = Object.assign({}, process.env, {
+        LD_LIBRARY_PATH: './tmp' // todo relative with node_modules
+    });
+    running = childProcess.spawn('node', ['./tmp/bundle.js'], {stdio: 'inherit', env: env});
     running.on('error', error => console.error('Error occurred in child process', error));
 }
 
