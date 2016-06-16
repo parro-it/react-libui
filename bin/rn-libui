@@ -101,7 +101,7 @@ function doCopy() {
     ];
 
     if (os.platform() === 'linux') {
-        if (os.arch() === 'x64') {
+        if (os.arch() !== 'x64') {
             toCopy.push(inputLibOne, outputLibOne);
         } else {
             toCopy.push(inputLibTwo, outputLibTwo);
