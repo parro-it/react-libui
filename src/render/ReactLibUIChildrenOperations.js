@@ -1,5 +1,5 @@
 import ReactLibUIIDOperations from './ReactLibUIIDOperations';
-import libui from '../../libui-node';
+import * as libui from 'libui-node';
 
 export function processChildrenUpdates(updates, components) {
     for (let i = 0; i < updates.length; i++) {

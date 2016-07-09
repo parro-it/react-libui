@@ -1,4 +1,4 @@
-import libui from '../../libui-node';
+import libui from 'libui-node';
 import ReactLibUIIDOperations from '../render/ReactLibUIIDOperations';
 
 export class Entry {

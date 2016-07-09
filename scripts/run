@@ -1,4 +1,0 @@
-#!/usr/bin/env bash
-
-cd ./tmp && export NO_AT_BRIDGE="1" && export LD_LIBRARY_PATH="." && node bundle.js
-

@@ -1,5 +1,9 @@
-import * as libui from './libui-node/index';
+import * as libui from 'libui-node';
+import * as React from 'react';
 
+module.exports = React; // for non es6
+
+export default React;
 export { render } from './src/render/render';
 export { Button } from './src/components/Button';
 export { Checkbox } from './src/components/Checkbox';
