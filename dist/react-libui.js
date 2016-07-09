@@ -19442,13 +19442,27 @@ module.exports = require$$0;
 });
 
 var react$1 = (react && typeof react === 'object' && 'default' in react ? react['default'] : react);
-var createElement = react.createElement;
+var Children = react.Children;
 var Component = react.Component;
+var createElement = react.createElement;
+var cloneElement = react.cloneElement;
+var isValidElement = react.isValidElement;
+var PropTypes = react.PropTypes;
+var createClass = react.createClass;
+var createFactory = react.createFactory;
+var createMixin = react.createMixin;
 
 var React = Object.freeze({
 	default: react$1,
+	Children: Children,
+	Component: Component,
 	createElement: createElement,
-	Component: Component
+	cloneElement: cloneElement,
+	isValidElement: isValidElement,
+	PropTypes: PropTypes,
+	createClass: createClass,
+	createFactory: createFactory,
+	createMixin: createMixin
 });
 
 var ON_READY_QUEUEING = {
@@ -19512,7 +19526,7 @@ var classCallCheck = function (instance, Constructor) {
   }
 };
 
-var createClass = function () {
+var createClass$1 = function () {
   function defineProperties(target, props) {
     for (var i = 0; i < props.length; i++) {
       var descriptor = props[i];
@@ -19542,7 +19556,7 @@ var ReactLibUIIDOperations = function () {
         this.window = null;
     }
 
-    createClass(ReactLibUIIDOperations, [{
+    createClass$1(ReactLibUIIDOperations, [{
         key: 'setWindow',
         value: function setWindow(window) {
             this.window = window;
@@ -19657,7 +19671,7 @@ var Button = function () {
         this._rootNodeID = null;
     }
 
-    createClass(Button, [{
+    createClass$1(Button, [{
         key: 'construct',
         value: function construct(element) {
             this._currentElement = element;
@@ -19722,7 +19736,7 @@ var Checkbox = function () {
         this._rootNodeID = null;
     }
 
-    createClass(Checkbox, [{
+    createClass$1(Checkbox, [{
         key: 'construct',
         value: function construct(element) {
             this._currentElement = element;
@@ -19795,7 +19809,7 @@ var Item = function () {
         this.node = null;
     }
 
-    createClass(Item, [{
+    createClass$1(Item, [{
         key: 'construct',
         value: function construct(element) {
             this._currentElement = element;
@@ -19849,7 +19863,7 @@ var Combobox = function () {
         this._rootNodeID = null;
     }
 
-    createClass(Combobox, [{
+    createClass$1(Combobox, [{
         key: 'construct',
         value: function construct(element) {
             this._currentElement = element;
@@ -19934,7 +19948,7 @@ var EditableCombobox = function () {
         this._rootNodeID = null;
     }
 
-    createClass(EditableCombobox, [{
+    createClass$1(EditableCombobox, [{
         key: 'construct',
         value: function construct(element) {
             this._currentElement = element;
@@ -20015,7 +20029,7 @@ var Entry = function () {
         this._rootNodeID = null;
     }
 
-    createClass(Entry, [{
+    createClass$1(Entry, [{
         key: 'construct',
         value: function construct(element) {
             this._currentElement = element;
@@ -20082,7 +20096,7 @@ var Group = function () {
         this._rootNodeID = null;
     }
 
-    createClass(Group, [{
+    createClass$1(Group, [{
         key: 'construct',
         value: function construct(element) {
             this._currentElement = element;
@@ -20155,7 +20169,7 @@ var HorizontalBox = function () {
         this._rootNodeID = null;
     }
 
-    createClass(HorizontalBox, [{
+    createClass$1(HorizontalBox, [{
         key: 'construct',
         value: function construct(element) {
             this._currentElement = element;
@@ -20228,7 +20242,7 @@ var Label = function () {
         this._rootNodeID = null;
     }
 
-    createClass(Label, [{
+    createClass$1(Label, [{
         key: 'construct',
         value: function construct(element) {
             this._currentElement = element;
@@ -20290,7 +20304,7 @@ var MultilineEntry = function () {
         this._rootNodeID = null;
     }
 
-    createClass(MultilineEntry, [{
+    createClass$1(MultilineEntry, [{
         key: 'construct',
         value: function construct(element) {
             this._currentElement = element;
@@ -20356,7 +20370,7 @@ var PasswordEntry = function () {
         this._rootNodeID = null;
     }
 
-    createClass(PasswordEntry, [{
+    createClass$1(PasswordEntry, [{
         key: 'construct',
         value: function construct(element) {
             this._currentElement = element;
@@ -20423,7 +20437,7 @@ var ProgressBar = function () {
         this._rootNodeID = null;
     }
 
-    createClass(ProgressBar, [{
+    createClass$1(ProgressBar, [{
         key: 'construct',
         value: function construct(element) {
             this._currentElement = element;
@@ -20484,7 +20498,7 @@ var RadioButtons = function () {
         this._rootNodeID = null;
     }
 
-    createClass(RadioButtons, [{
+    createClass$1(RadioButtons, [{
         key: 'construct',
         value: function construct(element) {
             this._currentElement = element;
@@ -20566,7 +20580,7 @@ var SearchEntry = function () {
         this._rootNodeID = null;
     }
 
-    createClass(SearchEntry, [{
+    createClass$1(SearchEntry, [{
         key: 'construct',
         value: function construct(element) {
             this._currentElement = element;
@@ -20633,7 +20647,7 @@ var Slider = function () {
         this._rootNodeID = null;
     }
 
-    createClass(Slider, [{
+    createClass$1(Slider, [{
         key: 'construct',
         value: function construct(element) {
             this._currentElement = element;
@@ -20701,7 +20715,7 @@ var Tab = function () {
         this.node = null;
     }
 
-    createClass(Tab, [{
+    createClass$1(Tab, [{
         key: 'construct',
         value: function construct(element) {
             this._currentElement = element;
@@ -20761,7 +20775,7 @@ var Tabs = function () {
         this._rootNodeID = null;
     }
 
-    createClass(Tabs, [{
+    createClass$1(Tabs, [{
         key: 'construct',
         value: function construct(element) {
             this._currentElement = element;
@@ -20843,7 +20857,7 @@ var VerticalBox = function () {
         this._rootNodeID = null;
     }
 
-    createClass(VerticalBox, [{
+    createClass$1(VerticalBox, [{
         key: 'construct',
         value: function construct(element) {
             this._currentElement = element;
@@ -20966,7 +20980,7 @@ var Window = function () {
         this._rootNodeID = null;
     }
 
-    createClass(Window, [{
+    createClass$1(Window, [{
         key: 'construct',
         value: function construct(element) {
             this._currentElement = element;
@@ -21053,18 +21067,20 @@ function start() {
     }
 }
 
-for (var prop in React) {
-    // copy over for es5
-    if (undefined(prop)) {
-        exports[prop] = React[prop];
-    }
-}
-
 libui.Ui.init();
 
 exports['default'] = React;
 exports.stop = stop;
 exports.start = start;
+exports.Children = Children;
+exports.Component = Component;
+exports.createElement = createElement;
+exports.cloneElement = cloneElement;
+exports.isValidElement = isValidElement;
+exports.PropTypes = PropTypes;
+exports.createClass = createClass;
+exports.createFactory = createFactory;
+exports.createMixin = createMixin;
 exports.render = render;
 exports.Button = Button;
 exports.Checkbox = Checkbox;

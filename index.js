@@ -2,6 +2,7 @@ import * as libui from 'libui-node';
 import * as React from 'react';
 
 export default React;
+export {Children, Component, createElement, cloneElement, isValidElement, PropTypes, createClass, createFactory, createMixin} from 'react';
 export { render } from './src/render/render';
 export { Button } from './src/components/Button';
 export { Checkbox } from './src/components/Checkbox';
@@ -29,12 +30,6 @@ export function start() {
         libui.Ui.main(); // not really sure why the loop doesn't work on mac
     } else {
         libui.startLoop();
-    }
-}
-
-for (let prop in React) { // copy over for es5
-    if (React.hasOwnProperty(prop)) {
-        exports[prop] = React[prop];
     }
 }
 
