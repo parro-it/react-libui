@@ -2,3 +2,4 @@ scripts/
 src/
 .babelrc
 index.js
+.idea/
