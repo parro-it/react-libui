@@ -21042,7 +21042,7 @@ var Window = function () {
 }();
 Object.assign(Window.prototype, ReactMultiChild$1.Mixin);
 
-module.exports = React; function stop() {
+function stop() {
     libui.stopLoop();
 }
 function start() {
@@ -21050,6 +21050,13 @@ function start() {
         libui.Ui.main(); // not really sure why the loop doesn't work on mac
     } else {
         libui.startLoop();
+    }
+}
+
+for (var prop in React) {
+    // copy over for es5
+    if (undefined(prop)) {
+        exports[prop] = React[prop];
     }
 }
 

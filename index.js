@@ -1,8 +1,6 @@
 import * as libui from 'libui-node';
 import * as React from 'react';
 
-module.exports = React; // for non es6
-
 export default React;
 export { render } from './src/render/render';
 export { Button } from './src/components/Button';
@@ -31,6 +29,12 @@ export function start() {
         libui.Ui.main(); // not really sure why the loop doesn't work on mac
     } else {
         libui.startLoop();
+    }
+}
+
+for (let prop in React) { // copy over for es5
+    if (React.hasOwnProperty(prop)) {
+        exports[prop] = React[prop];
     }
 }
 
