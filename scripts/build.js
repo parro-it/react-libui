@@ -22,7 +22,7 @@ const config = {
             include: [ 'node_modules/**' ],
             namedExports: {
                 'node_modules/libui-node/index.js': [ 'Ui', 'UiHorizontalBox', 'UiVerticalBox', 'UiButton' ],
-                'node_modules/react/react.js': [ 'createElement', 'Component' ]
+                'node_modules/react/react.js': [ 'Children', 'Component', 'createElement', 'cloneElement', 'isValidElement', 'PropTypes', 'createClass', 'createFactory', 'createMixin' ]
             }
         }),
     ]
