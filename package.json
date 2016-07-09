@@ -1,24 +1,25 @@
 {
-  "name": "react-libui",
-  "version": "0.0.2",
-  "description": "",
-  "main": "dist/react-libui.js",
-  "dependencies": {
-    "babel-preset-es2015-rollup": "^1.1.1",
-    "babel-preset-react": "^6.5.0",
-    "libui-node": "0.0.10",
-    "node-fetch": "^1.5.3",
-    "react": "^0.14.7",
-    "rollup": "^0.30.0",
-    "rollup-plugin-babel": "^2.5.1",
-    "rollup-plugin-commonjs": "^3.0.0",
-    "rollup-plugin-node-resolve": "^1.7.0"
-  },
-  "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "example": "echo \"This has been moved to the react-libui-examples project.\""
-  },
-  "keywords": [],
-  "author": "",
-  "license": "ISC"
+    "name": "react-libui",
+    "version": "0.0.2",
+    "description": "",
+    "main": "dist/react-libui.js",
+    "dependencies": {
+        "libui-node": "0.0.10"
+    },
+    "devDependencies": {
+        "babel-preset-es2015-rollup": "^1.1.1",
+        "react": "^0.14.7",
+        "rollup": "^0.30.0",
+        "rollup-plugin-babel": "^2.5.1",
+        "rollup-plugin-commonjs": "^3.0.0",
+        "rollup-plugin-node-resolve": "^1.7.0"
+    },
+    "scripts": {
+        "build": "node scripts/build",
+        "test": "echo \"Error: no test specified\" && exit 1",
+        "example": "echo \"This has been moved to the react-libui-examples project.\""
+    },
+    "keywords": [],
+    "author": "",
+    "license": "ISC"
 }
