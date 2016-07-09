@@ -20933,7 +20933,7 @@ var WindowDummy = {
             message = title;
             title = 'Alert';
         }
-        libui.UiDialogs.msgBox(this._handle, title, message);
+        libui.UiDialogs.msgBox(this, title, message);
     },
     error: function error(title, message) {
         if (arguments.length === 0) {
@@ -20943,32 +20943,16 @@ var WindowDummy = {
             message = title;
             title = 'Alert';
         }
-        libui.UiDialogs.msgBoxError(this._handle, title, message);
+        libui.UiDialogs.msgBoxError(this, title, message);
     },
     openFile: function openFile() {
-        return libui.UiDialogs.openFile(this._handle);
+        return libui.UiDialogs.openFile(this);
     },
     saveFile: function saveFile() {
-        return libui.UiDialogs.saveFile(this._handle);
-    },
-
-    // replicate window methods
-    setChild: function setChild() {
-        this._handle.setChild.apply(this._handle, arguments);
-    },
-    setTitle: function setTitle() {
-        this._handle.setTitle.apply(this._handle, arguments);
-    },
-    setMargined: function setMargined() {
-        this._handle.setMargined.apply(this._handle, arguments);
-    },
-    onClosing: function onClosing() {
-        this._handle.onClosing.apply(this._handle, arguments);
-    },
-    show: function show() {
-        this._handle.show.apply(this._handle, arguments);
+        return libui.UiDialogs.saveFile(this);
     }
 };
+Object.assign(libui.UiWindow.prototype, WindowDummy);
 
 var Window = function () {
     function Window(element) {
@@ -21003,9 +20987,7 @@ var Window = function () {
             this._rootNodeID = rootID;
 
             var props = this._currentElement.props;
-            this.node = Object.assign({
-                _handle: new libui.UiWindow(props.title || 'Empty Title', props.width || 500, props.height || 500, props.menu || false)
-            }, WindowDummy);
+            this.node = new libui.UiWindow(props.title || 'Empty Title', props.width || 500, props.height || 500, props.menu || false);
             instance.add(rootID, this.node);
             this.node.show();
 

@@ -2,13 +2,14 @@ import * as libui from 'libui-node';
 import ReactLibUIIDOperations from '../render/ReactLibUIIDOperations';
 import ReactMultiChild from 'react/lib/ReactMultiChild';
 
+
 const WindowDummy = {
     alert: function(title, message) {
         if (arguments.length === 1) {
             message = title;
             title = 'Alert';
         }
-        libui.UiDialogs.msgBox(this._handle, title, message);
+        libui.UiDialogs.msgBox(this, title, message);
     },
     error: function(title, message) {
         if (arguments.length === 0) {
@@ -18,32 +19,16 @@ const WindowDummy = {
             message = title;
             title = 'Alert';
         }
-        libui.UiDialogs.msgBoxError(this._handle, title, message);
+        libui.UiDialogs.msgBoxError(this, title, message);
     },
     openFile: function() {
-        return libui.UiDialogs.openFile(this._handle);
+        return libui.UiDialogs.openFile(this);
     },
     saveFile: function() {
-        return libui.UiDialogs.saveFile(this._handle);
-    },
-
-    // replicate window methods
-    setChild: function() {
-        this._handle.setChild.apply(this._handle, arguments);
-    },
-    setTitle: function() {
-        this._handle.setTitle.apply(this._handle, arguments);
-    },
-    setMargined: function() {
-        this._handle.setMargined.apply(this._handle, arguments);
-    },
-    onClosing: function() {
-        this._handle.onClosing.apply(this._handle, arguments);
-    },
-    show: function() {
-        this._handle.show.apply(this._handle, arguments);
+        return libui.UiDialogs.saveFile(this);
     }
 };
+Object.assign(libui.UiWindow.prototype, WindowDummy);
 
 export class Window {
     constructor(element) {
@@ -69,9 +54,7 @@ export class Window {
         this._rootNodeID = rootID;
 
         const props = this._currentElement.props;
-        this.node = Object.assign({
-            _handle: new libui.UiWindow(props.title || 'Empty Title', props.width || 500, props.height || 500, props.menu || false)
-        }, WindowDummy);
+        this.node = new libui.UiWindow(props.title || 'Empty Title', props.width || 500, props.height || 500, props.menu || false);
         ReactLibUIIDOperations.add(rootID, this.node);
         this.node.show();
 
