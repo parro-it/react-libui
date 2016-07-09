@@ -3,9 +3,6 @@
   "version": "0.0.2",
   "description": "",
   "main": "index.js",
-  "bin": {
-    "rn-libui": "./bin/rn-libui"
-  },
   "dependencies": {
     "babel-cli": "^6.10.1",
     "babel-preset-es2015-rollup": "^1.1.1",
@@ -25,7 +22,7 @@
   },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "example": "./bin/rn-libui examples/test.jsx"
+    "example": "echo \"This has been moved to the react-libui-examples project.\""
   },
   "keywords": [],
   "author": "",
