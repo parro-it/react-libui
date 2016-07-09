@@ -21024,10 +21024,10 @@ var Window = function () {
         key: 'updateProps',
         value: function updateProps(oldProps, props) {
             if (props.title !== oldProps.title) {
-                this.node.setTitle(props.title);
+                this.node.title = props.title;
             }
             if (props.margined !== oldProps.margined) {
-                this.node.setMargined(props.margined);
+                this.node.margined = props.margined;
             }
             if (props.onClosing) {
                 this.node.onClosing(props.onClosing);
