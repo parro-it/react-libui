@@ -1,4 +1,4 @@
-import libui from 'libui-node';
+import * as libui from 'libui-node';
 import ReactLibUIIDOperations from '../render/ReactLibUIIDOperations';
 import ReactMultiChild from 'react/lib/ReactMultiChild';
 

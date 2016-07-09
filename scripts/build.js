@@ -15,7 +15,8 @@ const config = {
             main: true,
             browser: false,
             extensions: [ '.js', '.json', '.node' ],
-            preferBuiltins: true
+            preferBuiltins: true,
+            skip: ['libui-node'] // skip native module
         }),
         commonjs({
             include: [ 'node_modules/**' ],
