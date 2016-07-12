@@ -90,8 +90,26 @@ export class Window {
         if (props.margined !== oldProps.margined) {
             this.node.margined = props.margined;
         }
+        const position = this.node.position;
+        let changedPosition = false;
+        let newX = position.x;
+        let newY = position.y;
+        if (oldProps.x !== props.x) {
+            newX = props.x;
+            changedPosition = true;
+        }
+        if (oldProps.y !== props.y) {
+            newY = props.y;
+            changedPosition = true;
+        }
+        if (changedPosition && (newX !== position.x || newY !== position.y)) {
+            setImmediate(() => this.node.position = new libui.Point(newX, newY));
+        }
         if (props.onClosing) {
             this.node.onClosing(props.onClosing);
+        }
+        if (props.onPositionChanged) {
+            this.node.onPositionChanged(() => props.onPositionChanged(this.node.position.x, this.node.position.y));
         }
     }
 }
