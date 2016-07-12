@@ -13,11 +13,9 @@ function isTab(component) {
 export function processChildrenUpdates(updates, components) {
     for (let i = 0; i < updates.length; i++) {
         const update = updates[i];
-        console.log(update);
         if (update.type === 'INSERT_MARKUP') {
             const component = components[update.markupIndex];
             const parent = update.parentNode;
-            console.log(component);
             if (isBox(parent)) {
                 // todo insertAt update.toIndex
                 parent.append(component, ReactLibUIIDOperations.getStretchy(component));

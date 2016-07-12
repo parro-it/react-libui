@@ -5,18 +5,6 @@ const stretchy = [];
 
 // inspired by https://github.com/Yomguithereal/react-blessed/blob/master/src/ReactBlessedIDOperations.js
 class ReactLibUIIDOperations {
-    constructor() {
-        this.window = null;
-    }
-
-    setWindow(window) {
-        this.window = window;
-
-        // todo force rerender of window
-
-        return this;
-    }
-
     add(id, node, props) {
         nodes[id] = node;
         if (props && props.stretchy) {
