@@ -2,7 +2,7 @@ import * as libui from 'libui-node';
 import * as React from 'react';
 
 export default React;
-export {Children, Component, createElement, cloneElement, isValidElement, PropTypes, createClass, createFactory, createMixin} from 'react';
+export { Children, Component, createElement, cloneElement, isValidElement, PropTypes, createClass, createFactory, createMixin } from 'react';
 export { render } from './src/render/render';
 export { Button } from './src/components/Button';
 export { Checkbox } from './src/components/Checkbox';
@@ -18,6 +18,7 @@ export { ProgressBar } from './src/components/ProgressBar';
 export { RadioButtons } from './src/components/RadioButtons';
 export { SearchEntry } from './src/components/SearchEntry';
 export { Slider } from './src/components/Slider';
+export { Spinbox } from './src/components/Spinbox';
 export { Tabs } from './src/components/Tabs';
 export { VerticalBox } from './src/components/VerticalBox';
 export { Window } from './src/components/Window';

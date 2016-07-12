@@ -1,12 +1,10 @@
 import * as libui from 'libui-node';
 import ReactLibUIIDOperations from '../render/ReactLibUIIDOperations';
-import ReactMultiChild from 'react/lib/ReactMultiChild';
 
-export class VerticalBox {
+export class Spinbox {
     constructor(element) {
         this.node = null;
         this._currentElement = element;
-        this._renderedChildren = null;
         this._rootNodeID = null;
     }
 
@@ -25,11 +23,10 @@ export class VerticalBox {
     mountComponent(rootID, transaction, context) {
         this._rootNodeID = rootID;
         const props = this._currentElement.props;
-        this.node = new libui.UiVerticalBox();
+        this.node = new libui.UiSpinbox(props.min || 0, props.max || 100);
         ReactLibUIIDOperations.add(rootID, this.node, props);
         this.updateProps({}, props);
 
-        this.mountChildren(props.children, transaction, context).map((child, index) => this.mountChild(child, props, index));
         return this.node;
     }
 
@@ -37,25 +34,20 @@ export class VerticalBox {
         const props = nextComponent.props;
         const oldProps = this._currentElement.props;
         this.updateProps(oldProps, props);
-        this.updateChildren(props.children, transaction, context);
         this._currentElement = nextComponent;
-    }
-
-    mountChild(child, props, index) {
-        this.node.append(child, props.stretch);
     }
 
     unmountComponent() {
         this.unmountChildren();
-        this.node._unmount();
-    }
-
-    unmountChild(child, index) {
-        this.node.deleteAt(index);
+        ReactLibUIIDOperations.drop(this._rootNodeID);
     }
 
     updateProps(oldProps, props) {
-        this.node.setPadded(props.padded || true);
+        if (props.value !== oldProps.value) {
+            this.node.setValue(props.value);
+        }
+        if (props.onChanged) {
+            this.node.onChanged(() => props.onChanged(this.node.getValue()));
+        }
     }
 }
-Object.assign(VerticalBox.prototype, ReactMultiChild.Mixin);

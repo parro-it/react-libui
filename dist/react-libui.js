@@ -641,7 +641,7 @@ var ReactVersion = createCommonjsModule(function (module) {
 
 'use strict';
 
-module.exports = '0.14.8';
+module.exports = '0.14.7';
 });
 
 var require$$4 = (ReactVersion && typeof ReactVersion === 'object' && 'default' in ReactVersion ? ReactVersion['default'] : ReactVersion);
@@ -4172,10 +4172,6 @@ var ReactEmptyComponentInjection = {
   }
 };
 
-function registerNullComponentID() {
-  ReactEmptyComponentRegistry.registerNullComponentID(this._rootNodeID);
-}
-
 var ReactEmptyComponent = function (instantiate) {
   this._currentElement = null;
   this._rootNodeID = null;
@@ -4184,7 +4180,7 @@ var ReactEmptyComponent = function (instantiate) {
 assign(ReactEmptyComponent.prototype, {
   construct: function (element) {},
   mountComponent: function (rootID, transaction, context) {
-    transaction.getReactMountReady().enqueue(registerNullComponentID, this);
+    ReactEmptyComponentRegistry.registerNullComponentID(rootID);
     this._rootNodeID = rootID;
     return ReactReconciler.mountComponent(this._renderedComponent, rootID, transaction, context);
   },
@@ -19496,20 +19492,36 @@ Object.assign(ReactLibUIReconcileTransaction.prototype, Transaction$1.Mixin, Mix
 
 PooledClass$1.addPoolingTo(ReactLibUIReconcileTransaction);
 
+function isBox(component) {
+    return component instanceof libui.UiVerticalBox || component instanceof libui.UiHorizontalBox;
+}
+
+function isTab(component) {
+    return component instanceof libui.UiTab;
+}
+
 function processChildrenUpdates(updates, components) {
     for (var i = 0; i < updates.length; i++) {
         var update = updates[i];
+        console.log(update);
         if (update.type === 'INSERT_MARKUP') {
             var component = components[update.markupIndex];
             var parent = update.parentNode;
-            if (parent instanceof libui.UiVerticalBox || parent instanceof libui.UiHorizontalBox) {
+            console.log(component);
+            if (isBox(parent)) {
+                // todo insertAt update.toIndex
                 parent.append(component, instance.getStretchy(component));
+            } else if (isTab(parent)) {
+                parent.append(component.title, component.node); // special tab stuff
+                if (component.margined) {
+                    parent.setMargined(update.toIndex, true);
+                }
             } else {
                 console.warn('Unhandled INSERT_MARKUP inside parent', parent);
             }
         } else if (update.type === 'REMOVE_NODE') {
             var _parent = update.parentNode;
-            if (_parent instanceof libui.UiVerticalBox || _parent instanceof libui.UiHorizontalBox) {
+            if (isBox(_parent) || isTab(_parent)) {
                 _parent.deleteAt(update.fromIndex);
             } else {
                 console.warn('Unhandled REMOVE_NODE inside parent', _parent);
@@ -20705,6 +20717,73 @@ var Slider = function () {
     return Slider;
 }();
 
+var Spinbox = function () {
+    function Spinbox(element) {
+        classCallCheck(this, Spinbox);
+
+        this.node = null;
+        this._currentElement = element;
+        this._rootNodeID = null;
+    }
+
+    createClass$1(Spinbox, [{
+        key: 'construct',
+        value: function construct(element) {
+            this._currentElement = element;
+        }
+    }, {
+        key: 'getNativeNode',
+        value: function getNativeNode() {
+            return this.node;
+        }
+    }, {
+        key: 'getPublicInstance',
+        value: function getPublicInstance() {
+            return this.node;
+        }
+    }, {
+        key: 'mountComponent',
+        value: function mountComponent(rootID, transaction, context) {
+            this._rootNodeID = rootID;
+            var props = this._currentElement.props;
+            this.node = new libui.UiSpinbox(props.min || 0, props.max || 100);
+            instance.add(rootID, this.node, props);
+            this.updateProps({}, props);
+
+            return this.node;
+        }
+    }, {
+        key: 'receiveComponent',
+        value: function receiveComponent(nextComponent, transaction, context) {
+            var props = nextComponent.props;
+            var oldProps = this._currentElement.props;
+            this.updateProps(oldProps, props);
+            this._currentElement = nextComponent;
+        }
+    }, {
+        key: 'unmountComponent',
+        value: function unmountComponent() {
+            this.unmountChildren();
+            instance.drop(this._rootNodeID);
+        }
+    }, {
+        key: 'updateProps',
+        value: function updateProps(oldProps, props) {
+            var _this = this;
+
+            if (props.value !== oldProps.value) {
+                this.node.setValue(props.value);
+            }
+            if (props.onChanged) {
+                this.node.onChanged(function () {
+                    return props.onChanged(_this.node.getValue());
+                });
+            }
+        }
+    }]);
+    return Spinbox;
+}();
+
 var Tab = function () {
     function Tab(element) {
         classCallCheck(this, Tab);
@@ -20905,11 +20984,7 @@ var VerticalBox = function () {
     }, {
         key: 'unmountComponent',
         value: function unmountComponent() {
-            var _this2 = this;
-
-            this.unmountChildren().map(function (child, index) {
-                return _this2.unmountChild(child, index);
-            });
+            this.unmountChildren();
             this.node._unmount();
         }
     }, {
@@ -21023,14 +21098,38 @@ var Window = function () {
     }, {
         key: 'updateProps',
         value: function updateProps(oldProps, props) {
+            var _this2 = this;
+
             if (props.title !== oldProps.title) {
                 this.node.title = props.title;
             }
             if (props.margined !== oldProps.margined) {
                 this.node.margined = props.margined;
             }
+            var position = this.node.position;
+            var changedPosition = false;
+            var newX = position.x;
+            var newY = position.y;
+            if (oldProps.x !== props.x) {
+                newX = props.x;
+                changedPosition = true;
+            }
+            if (oldProps.y !== props.y) {
+                newY = props.y;
+                changedPosition = true;
+            }
+            if (changedPosition && (newX !== position.x || newY !== position.y)) {
+                setImmediate(function () {
+                    return _this2.node.position = new libui.Point(newX, newY);
+                });
+            }
             if (props.onClosing) {
                 this.node.onClosing(props.onClosing);
+            }
+            if (props.onPositionChanged) {
+                this.node.onPositionChanged(function () {
+                    return props.onPositionChanged(_this2.node.position.x, _this2.node.position.y);
+                });
             }
         }
     }]);
@@ -21078,6 +21177,7 @@ exports.ProgressBar = ProgressBar;
 exports.RadioButtons = RadioButtons;
 exports.SearchEntry = SearchEntry;
 exports.Slider = Slider;
+exports.Spinbox = Spinbox;
 exports.Tabs = Tabs;
 exports.VerticalBox = VerticalBox;
 exports.Window = Window;

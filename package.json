@@ -4,18 +4,21 @@
     "description": "",
     "main": "dist/react-libui.js",
     "dependencies": {
-        "libui-node": "0.0.10"
+        "libui-node": "0.0.11"
     },
     "devDependencies": {
-        "babel-preset-es2015-rollup": "^1.1.1",
-        "react": "^0.14.7",
-        "rollup": "^0.30.0",
-        "rollup-plugin-babel": "^2.5.1",
-        "rollup-plugin-commonjs": "^3.0.0",
-        "rollup-plugin-node-resolve": "^1.7.0"
+        "babel-preset-es2015-rollup": "1.1.1",
+        "react": "0.14.7",
+        "rollup": "0.34.1",
+        "rollup-plugin-babel": "2.6.1",
+        "rollup-plugin-commonjs": "3.1.0",
+        "rollup-plugin-node-resolve": "1.7.1",
+        "rollup-watch": "2.4.0",
+        "watch": "0.19.1"
     },
     "scripts": {
         "build": "node scripts/build",
+        "watch": "watch \"npm run build\" . --ignoreDirectoryPattern=/dist/g --wait=2",
         "test": "echo \"Error: no test specified\" && exit 1",
         "example": "echo \"This has been moved to the react-libui-examples project.\""
     },
