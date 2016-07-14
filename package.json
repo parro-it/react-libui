@@ -1,7 +1,28 @@
 {
     "name": "react-libui",
-    "version": "0.0.2",
-    "description": "",
+    "version": "0.1.0",
+    "description": "Create UIs for every platform using the best view framework.",
+    "license": "MIT",
+    "bugs": {
+        "url": "https://github.com/PaulBGD/react-libui/issues",
+        "email": "paul@burngames.net"
+    },
+    "author": {
+        "name": "Paul Sauve",
+        "email": "paul@burngames.net",
+        "url": "https://paulb.gd"
+    },
+    "directories": {
+        "lib": "dist/"
+    },
+    "repository": {
+        "type": "git",
+        "url": "https://github.com/PaulBGD/react-libui.git"
+    },
+    "os": [
+        "darwin",
+        "linux"
+    ],
     "main": "dist/react-libui.js",
     "dependencies": {
         "libui-node": "0.0.11"
@@ -22,7 +43,19 @@
         "test": "echo \"Error: no test specified\" && exit 1",
         "example": "echo \"This has been moved to the react-libui-examples project.\""
     },
-    "keywords": [],
-    "author": "",
-    "license": "ISC"
+    "keywords": [
+        "react",
+        "renderer",
+        "react-renderer",
+        "gui",
+        "gooey",
+        "graphic",
+        "graphics",
+        "user",
+        "interface",
+        "libui",
+        "ui",
+        "lib",
+        "library"
+    ]
 }

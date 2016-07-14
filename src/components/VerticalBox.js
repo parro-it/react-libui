@@ -26,10 +26,11 @@ export class VerticalBox {
         this._rootNodeID = rootID;
         const props = this._currentElement.props;
         this.node = new libui.UiVerticalBox();
+        this.node.setPadded(true); // default is true
         ReactLibUIIDOperations.add(rootID, this.node, props);
         this.updateProps({}, props);
 
-        this.mountChildren(props.children, transaction, context).map((child, index) => this.mountChild(child, props, index));
+        this.mountChildren(props.children, transaction, context).map(child => this.mountChild(child));
         return this.node;
     }
 
@@ -41,8 +42,8 @@ export class VerticalBox {
         this._currentElement = nextComponent;
     }
 
-    mountChild(child, props, index) {
-        this.node.append(child, props.stretch);
+    mountChild(child) {
+        this.node.append(child, ReactLibUIIDOperations.getStretchy(child));
     }
 
     unmountComponent() {
@@ -55,7 +56,16 @@ export class VerticalBox {
     }
 
     updateProps(oldProps, props) {
-        this.node.setPadded(props.padded || true);
+        if (isPadded(oldProps) !== isPadded(props)) {
+            this.node.setPadded(isPadded(props));
+        }
     }
 }
 Object.assign(VerticalBox.prototype, ReactMultiChild.Mixin);
+
+// if nothing is passed, then it's true
+function isPadded(props) {
+    return props.padded !== false;
+    
+}
+

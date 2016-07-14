@@ -1,8 +1,6 @@
 import * as libui from 'libui-node';
 import * as React from 'react';
 
-module.exports = React; // for non es6
-
 export default React;
 export { Children, Component, createElement, cloneElement, isValidElement, PropTypes, createClass, createFactory, createMixin } from 'react';
 export { render } from './src/render/render';

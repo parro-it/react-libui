@@ -112,5 +112,6 @@ export class Window {
             this.node.onPositionChanged(() => props.onPositionChanged(this.node.position.x, this.node.position.y));
         }
     }
+    
 }
 Object.assign(Window.prototype, ReactMultiChild.Mixin);

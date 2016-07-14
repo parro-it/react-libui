@@ -27,10 +27,11 @@ export class HorizontalBox {
 
         const props = this._currentElement.props;
         this.node = new libui.UiHorizontalBox();
+        this.node.setPadded(true); // default is true
         ReactLibUIIDOperations.add(rootID, this.node, props);
         this.updateProps({}, props);
 
-        this.mountChildren(props.children, transaction, context).map(child => this.mountChild(child, props));
+        this.mountChildren(props.children, transaction, context).map(child => this.mountChild(child));
         return this.node;
     }
 
@@ -42,8 +43,8 @@ export class HorizontalBox {
         this._currentElement = nextComponent;
     }
 
-    mountChild(child, props) {
-        this.node.append(child, props.stretch);
+    mountChild(child) {
+        this.node.append(child, ReactLibUIIDOperations.getStretchy(child));
     }
 
     unmountComponent() {
@@ -54,7 +55,15 @@ export class HorizontalBox {
     }
 
     updateProps(oldProps, props) {
-        this.node.setPadded(props.padded || true);
+        if (isPadded(oldProps) !== isPadded(props)) {
+            this.node.setPadded(isPadded(props));
+        }
     }
 }
 Object.assign(HorizontalBox.prototype, ReactMultiChild.Mixin);
+
+// if nothing is passed, then it's true
+function isPadded(props) {
+    return props.padded !== false;
+
+}

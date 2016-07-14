@@ -7,7 +7,7 @@ const stretchy = [];
 class ReactLibUIIDOperations {
     add(id, node, props) {
         nodes[id] = node;
-        if (props && props.stretchy) {
+        if (props && props.stretch) {
             stretchy.push(node);
         }
         return this;

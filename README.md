@@ -11,6 +11,33 @@ Then you can go ahead and install react-libui:
 ```
 npm install --save --production react-libui
 ```
+**Do not install React. We require a specific version, so we bundle it with our package.**
+
+Then to use:
+```javascript
+import React, {
+    createClass,
+    render,
+    start,
+
+    Label,
+    VerticalBox,
+    Window
+} from 'react-libui';
+
+const MyApp = React.createClass({
+    render: function() {
+        return (<Window title="My Window">
+            <VerticalBox>
+                <Label>Hello World!</Label>
+            </VerticalBox>
+        </Window>);
+    }
+});
+render(<MyApp/>);
+start();
+```
+
 We follow semvar versioning.
 We have no plans at this time to make a v2, so we'll try our best to make your applications run on all versions of react-libui.
 
